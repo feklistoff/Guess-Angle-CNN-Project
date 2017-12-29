@@ -9,9 +9,11 @@ The model takes a plain white picture with draw rectangles that is randomly rota
 **Goals of this Project:**
 
 * Develop a pipeline for generating dataset of 11000 training pictures:
+  * size of the picture 128x128
   * each picture contains one to five random rectangles
-  * the center of each rectangle is between 0.1 and 1 of width/height of the picture
-  * the picture is randomly rotated between -10 and 10 degrees
+  * width/height of each rectangle is between 0.1 and 1 of width/height of the picture
+  * the center point of rectangle is randomly chosen from 128x128 area
+  * after drawing rectangles the picture itself is randomly rotated between -10 and 10 degrees
 * Write a network in TensorFlow that predicts picture's rotation angle
 * Write a function that uses the output of the network to rotate given picture back
 * Visualize the result
