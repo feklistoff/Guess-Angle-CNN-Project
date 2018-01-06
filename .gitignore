@@ -1,1 +1,11 @@
-.ipynb_checkpoints/
+.ipynb_checkpoints
+
+.idea
+
+data_train/
+
+data_test/
+
+data_train_simple/
+
+data_test_simple/
