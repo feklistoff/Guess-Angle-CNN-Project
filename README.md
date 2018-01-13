@@ -1,7 +1,7 @@
 # Guess-Angle-CNN Project
 
 ## Overview
----
+
 This is a test project where I train, validate and test a model using CNN. 
 
 The model takes a plain white picture with draw rectangles that is randomly rotated between -10 and 10 degrees and predicts an angle of picture rotation.
@@ -20,9 +20,11 @@ The model takes a plain white picture with draw rectangles that is randomly rota
 * Visualize the result
 
 ## Files:
-* `model_b.h5` - Saved model
-* `dataset_generator.ipynb` - Notebook used to create the dataset
-* `model_notebook.ipynb` - Notebook visualizing building steps and data preprocessing pipeline
+* `dataset_generator.ipynb` - notebook used for generation of the dataset
+* `dataset_helper.py` - python file with DataSet class that operates on generated data
+* `model_keras_single_out.ipynb` - network architecture using Keras
+* `model_single_out.h5` - Saved model
+* `model_tf.ipynb` - network building, training and evaluating steps using TensorFlow
 
 ## Dependencies
 Virtual environment can be created using `conda` from `environment.yml` file:

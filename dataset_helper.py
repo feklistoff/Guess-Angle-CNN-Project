@@ -3,18 +3,23 @@ import random
 import numpy as np
 import matplotlib.image as mpimg
 
+def rotate(img, ang):
+    height, width, ch = img.shape
+    sh = (width, height)
+    center = (width // 2, height // 2)
+    M = cv2.getRotationMatrix2D(center, ang, 1.0)
+    return cv2.warpAffine(img, M, sh)
 
 class DataSet:
-    def __init__(self, angles, samples, phase='train', batch_size=64, size=64):
+    def __init__(self, angles, samples, phase='train', batch_size=64, size=128):
         self.angles = angles
         self.sample_paths = samples
         self.phase = phase
         self.batch_size = batch_size
         self.size = size
-        # self.labels = np.unique(angles)
-
-    def resize(self, img):
-        return cv2.resize(img, (self.size, self.size))
+        self.end_batch = None
+        if phase == 'test':
+            self.end_batch = 0
 
     def random_shift(self, img):
         if random.randint(0, 1) == 0:
@@ -63,27 +68,27 @@ class DataSet:
                 rnd_idx = random.randint(0, len(self.sample_paths) - 1)
                 angle = self.angles[rnd_idx]
                 img = mpimg.imread(self.sample_paths[rnd_idx])
-                # img = self.random_shift(img)
-                # img = self.random_shadow(img)
-                # img, angle = self.flip(img, angle)
-                # img = self.resize(img)
+                img = self.random_shift(img)
+                img = self.random_shadow(img)
+                img, angle = self.flip(img, angle)
                 img = self.normalize(img)
                 batch_imgs.append(img)
                 batch_angles.append(angle)
-        if self.phase == 'valid' or self.phase == 'test':
+        if self.phase == 'valid':
            for i in range(self.batch_size):
                 rnd_idx = random.randint(0, len(self.sample_paths) - 1)
                 angle = self.angles[rnd_idx]
                 img = mpimg.imread(self.sample_paths[rnd_idx])
-                # img = self.resize(img)
                 img = self.normalize(img)
                 batch_imgs.append(img)
                 batch_angles.append(angle)
-        # if self.phase == 'test':
-        #     for i in range(self.batch_size):
-        #         rnd_idx = random.randint(0, len(self.sample_paths) - 1)
-        #         angle = self.angles[rnd_idx]
-        #         img = mpimg.imread(self.sample_paths[rnd_idx])
-        #         batch_imgs.append(img)
-        #         batch_angles.append(angle)
+        if self.phase == 'test':
+            if self.end_batch >= len(self.sample_paths) - 1:
+                self.end_batch = 0
+            for i in range(self.end_batch, self.batch_size + self.end_batch, 1):
+                angle = self.angles[i]
+                img = mpimg.imread(self.sample_paths[i])
+                batch_imgs.append(img)
+                batch_angles.append(angle)
+            self.end_batch += self.batch_size
         return np.asarray(batch_imgs), np.asarray(batch_angles)
