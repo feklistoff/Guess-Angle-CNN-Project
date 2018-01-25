@@ -29,10 +29,11 @@ The model takes a plain white picture with draw rectangles that is randomly rota
 ## Results
 * Developed dataset generation pipeline that meets the requirements
 * Built two models that predict an angle of rotation:
-  * Simple model with one output in Keras that was trained for 30 epochs and achieved average error in prediction of 1.4 degrees
-  * Model in TensorFlow that was trained for 1500 epochs and achieved average error in prediction of 0.785 degrees on the test dataset of 1000 images
+  * Simple model with one output in Keras that was trained for 30 epochs and achieved average error in prediction of 1.4 degrees (check [here](https://github.com/feklistoff/Guess-Angle-CNN-Project/blob/master/model_keras_single_out.ipynb))
+  * Model in TensorFlow that was trained for 1500 epochs and achieved average error in prediction of 0.785 degrees on the test dataset of 1000 images (check [here](https://github.com/feklistoff/Guess-Angle-CNN-Project/blob/master/model_tf.ipynb))
 * Visualised the results using function that takes as an input predicted angle and rotates the whole picture back
 
+<img src="result.png" width="700px">
 
 ## Dependencies
 Virtual environment can be created using `conda` from `environment.yml` file:
